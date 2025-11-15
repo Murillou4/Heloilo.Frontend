@@ -1,4 +1,4 @@
-name: Heloilo
+name: heloilo
 description: "Heloilo é um projeto que trabalho desde de 2023, agora que tenho mais experiência quero fazer um app completo pra eu e minha noiva, espero que ele seja util pra nós dois, te amo bem."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -34,13 +34,18 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
-  go_router_sugar: ^1.2.1
+  shared_preferences: ^2.5.3
+  flutter_riverpod: ^3.0.3
+  dio: ^5.9.0
+  signalr_netcore: ^1.4.4
+  flutter_dotenv: ^6.0.0
+  logger: ^2.6.2
+  flutter_secure_storage: ^9.2.4
+  go_router: ^17.0.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
-  go_router_sugar: ^1.2.1
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -58,6 +63,11 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/fonts/
+    - .env
 
   # To add assets to your application, add an assets section, like this:
   # assets:
@@ -89,3 +99,38 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+  fonts:
+    - family: NunitoSans
+      fonts:
+        - asset: "assets/fonts/NunitoSans-VariableFont_YTLC,opsz,wdth,wght.ttf"
+
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/Poppins-Light/Poppins-Thin.ttf
+          weight: 100
+        - asset: assets/fonts/Poppins-Light/Poppins-ExtraLight.ttf
+          weight: 200
+        - asset: assets/fonts/Poppins-Light/Poppins-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Poppins-Light/Poppins-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Poppins-Light/Poppins-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Poppins-Light/Poppins-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Poppins-Light/Poppins-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Poppins-Light/Poppins-ExtraBold.ttf
+          weight: 800
+        - asset: assets/fonts/Poppins-Light/Poppins-Black.ttf
+          weight: 900
+        - asset: assets/fonts/Poppins-Light/Poppins-Italic.ttf
+          style: italic
+        - asset: assets/fonts/Poppins-Light/Poppins-LightItalic.ttf
+          style: italic
+        - asset: assets/fonts/Poppins-Light/Poppins-BoldItalic.ttf
+          weight: 700
+          style: italic
+        - asset: assets/fonts/Poppins-Light/Poppins-BlackItalic.ttf
+          weight: 900
+          style: italic

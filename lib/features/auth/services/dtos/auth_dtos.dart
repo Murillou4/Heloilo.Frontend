@@ -8,10 +8,7 @@ class SignInDto {
   SignInDto({required this.email, required this.password});
 
   Map<String, dynamic> toMap() {
-    return {
-      'email': email,
-      'password': password,
-    };
+    return {'email': email, 'password': password};
   }
 }
 
@@ -21,7 +18,12 @@ class SignUpDto {
   final String name;
   final String nickname;
 
-  SignUpDto({required this.email, required this.password, required this.name, required this.nickname});
+  SignUpDto({
+    required this.email,
+    required this.password,
+    required this.name,
+    required this.nickname,
+  });
 
   Map<String, dynamic> toMap() {
     return {
@@ -41,9 +43,8 @@ class AuthResponseDto {
 
   factory AuthResponseDto.fromResponse(Map<String, dynamic> map) {
     return AuthResponseDto(
-      user: User.fromJson(map['user']),
+      user: User.fromMap(map['user']),
       auth: Auth.fromMap(map),
     );
   }
 }
-

@@ -7,5 +7,5 @@ enum ResponseType {
   internalError;
 
   static ResponseType fromString(String value) => ResponseType.values
-      .firstWhere((e) => e.toString().split('.').last == value);
+      .firstWhere((e) => e.toString().split('.').last == value.toLowerCase());
 }

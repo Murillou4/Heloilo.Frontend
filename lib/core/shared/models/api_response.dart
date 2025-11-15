@@ -24,14 +24,6 @@ class ApiResponse {
     required this.date,
   });
 
-  ApiResponse toOkorError() {
-    if (type == ResponseType.ok) {
-      return this as ApiResponseSuccess;
-    } else {
-      return this as ApiResponseError;
-    }
-  }
-
   ApiResponse copyWith({
     ResponseType? type,
     String? message,
@@ -66,23 +58,40 @@ class ApiResponse {
 
   factory ApiResponse.fromMap(Map<String, dynamic> map) {
     try {
-      return ApiResponse(
-        type: ResponseType.fromString(map['type'] as String),
-        message: map['message'] as String,
-        title: map['title'] as String,
-        status: map['status'] as int,
-        data: map['data'],
-        extendedResultCode: map['extendedResultCode'] as String,
-        date: DateTime.fromMillisecondsSinceEpoch(map['date'] as int),
-      );
+      // 1. Lemos o tipo primeiro para decidir
+      final type = ResponseType.fromString(map['type'] as String);
+
+      // 2. Se for 'ok', criamos um ApiResponseSuccess
+      if (type == ResponseType.ok) {
+        return ApiResponseSuccess(
+          type: type,
+          message: map['message'] as String,
+          title: map['title'] as String,
+          status: map['status'] as int,
+          data: map['data'], // Sucesso inclui dados
+          extendedResultCode: map['extendedResultCode'] as String,
+          date: DateTime.parse(map['date'] as String), // API Doc usa ISO String
+        );
+      } else {
+        // 3. Se for qualquer outro tipo, criamos um ApiResponseError
+        return ApiResponseError(
+          type: type,
+          message: map['message'] as String,
+          title: map['title'] as String,
+          status: map['status'] as int,
+          extendedResultCode: map['extendedResultCode'] as String,
+          date: DateTime.parse(map['date'] as String), // API Doc usa ISO String
+        );
+      }
     } catch (e) {
-      return ApiResponse(
+      // 4. Se tudo falhar (ex: 'type' não existe), retorne um Erro Padrão
+      return ApiResponseError(
         type: ResponseType.internalError,
-        message: "Serviço indisponível",
-        title: 'Error',
+        message: "Serviço indisponível ou resposta inválida",
+        title: 'Erro de Deserialização',
         status: 500,
-        data: null,
-        extendedResultCode: '',
+        // Erro não tem 'data' no construtor, mas o pai tem
+        extendedResultCode: '#FATAL',
         date: DateTime.now(),
       );
     }
